@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог фильмов</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #121212; color: white; padding: 20px; }
+        h1 { color: #ffcc00; }
+        .movie { margin-bottom: 20px; padding: 10px; border-bottom: 1px solid #333; }
+        iframe { width: 100%; height: 300px; }
+    </style>
+</head>
+<body>
+
+    <h1>Каталог фильмов</h1>
+    <div id="movies-list"></div>
+
+    <script>
+        fetch('movies.json')
+            .then(response => response.json())
+            .then(data => {
+                let container = document.getElementById('movies-list');
+                data.forEach(movie => {
+                    let div = document.createElement('div');
+                    div.className = 'movie';
+                    div.innerHTML = `<h2>${movie.title}</h2><iframe src="${movie.iframe}" frameborder="0" allowfullscreen></iframe>`;
+                    container.appendChild(div);
+                });
+            })
+            .catch(error => console.error('Ошибка загрузки:', error));
+    </script>
+
+</body>
+</html>
